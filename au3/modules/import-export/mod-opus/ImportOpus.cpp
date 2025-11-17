@@ -119,10 +119,10 @@ std::unique_ptr<ImportFileHandle> OpusImportPlugin::Open(const FilePath& filenam
     auto handle = std::make_unique<OpusImportFileHandle>(filename);
 
     if (!handle->IsOpen()) {
-        return {}
+        return {};
     }
 
-    return std::move(handle);
+    return handle;
 }
 
 static Importer::RegisteredImportPlugin registered{ "Opus",
