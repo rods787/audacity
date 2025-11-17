@@ -56,7 +56,7 @@ FormatClassifier::FormatClassifier(const char* filename)
 #ifdef FORMATCLASSIFIER_SIGNAL_DEBUG
     // Build a debug writer
     char dfile[1024];
-    sprintf(dfile, "%s.sig", filename);
+    snprintf(dfile, sizeof(dfile), "%s.sig", filename);
     mpWriter = std::make_unique<DebugWriter>(dfile);
 #endif
 

@@ -129,8 +129,8 @@ void PipeServer()
     char toFifoName[nBuff];
     char fromFifoName[nBuff];
 
-    sprintf(toFifoName, fifotmpl, "to", getuid());
-    sprintf(fromFifoName, fifotmpl, "from", getuid());
+    snprintf(toFifoName, sizeof(toFifoName), fifotmpl, "to", getuid());
+    snprintf(fromFifoName, sizeof(fromFifoName), fifotmpl, "from", getuid());
 
     unlink(toFifoName);
     unlink(fromFifoName);
