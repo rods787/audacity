@@ -28,6 +28,7 @@ protected:
 
 private:
     void OnPaint(wxPaintEvent& evt);
+    void OnLeftClick(wxMouseEvent& evt);
 
     const Observer::Subscription mPlaybackStartStopSubscription;
     bool mClipping = false;

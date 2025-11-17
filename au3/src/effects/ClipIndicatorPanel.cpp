@@ -15,6 +15,7 @@
 
 BEGIN_EVENT_TABLE(ClipIndicatorPanel, wxPanelWrapper)
 EVT_PAINT(ClipIndicatorPanel::OnPaint)
+EVT_LEFT_DOWN(ClipIndicatorPanel::OnLeftClick)
 END_EVENT_TABLE()
 
 ClipIndicatorPanel::ClipIndicatorPanel(wxWindow* parent, int id)
@@ -54,4 +55,9 @@ void ClipIndicatorPanel::OnPaint(wxPaintEvent& evt)
     dc.SetBrush(GetColorMix(*wxWHITE, color, 0.5));
     dc.SetPen(*wxTRANSPARENT_PEN);
     dc.DrawRoundedRectangle(rect.Deflate(2), 2);
+}
+
+void ClipIndicatorPanel::OnLeftClick(wxMouseEvent& evt)
+{
+    Reset();
 }
