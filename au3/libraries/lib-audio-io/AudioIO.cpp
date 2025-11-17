@@ -352,8 +352,11 @@ AudioIO::~AudioIO()
     }
 #endif
 
-    // FIXME: ? TRAP_ERR.  Pa_Terminate probably OK if err without reporting.
-    Pa_Terminate();
+    PaError err = Pa_Terminate();
+    if (err != paNoError) {
+        wxLogWarning(wxT("PortAudio termination warning: %s"),
+                     wxString::FromUTF8(Pa_GetErrorText(err)));
+    }
 
     /* Delete is a "graceful" way to stop the thread.
        (Kill is the not-graceful way.) */
