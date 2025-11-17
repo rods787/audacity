@@ -112,7 +112,7 @@ Slider {
         id: handleItem
 
         x: prv.rulerXPos - root.handleWidth / 2
-        y: (1.0 - root.meterModel.position) * prv.rulerLineHeight
+        y: root.meterModel ? (1.0 - root.meterModel.position) * prv.rulerLineHeight : 0
         implicitWidth: root.handleWidth
         implicitHeight: root.handleHeight
 
