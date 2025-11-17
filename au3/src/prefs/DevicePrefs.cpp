@@ -136,9 +136,11 @@ void DevicePrefs::Populate()
 void DevicePrefs::GetNamesAndLabels()
 {
     // Gather list of hosts.  Only added hosts that have devices attached.
-    // FIXME: TRAP_ERR PaErrorCode not handled in DevicePrefs GetNamesAndLabels()
-    // With an error code won't add hosts, but won't report a problem either.
     int nDevices = Pa_GetDeviceCount();
+    if (nDevices < 0) {
+        wxLogError(wxT("PortAudio error getting device count: %s"), wxString::FromUTF8(Pa_GetErrorText(nDevices)));
+        return;
+    }
     for (int i = 0; i < nDevices; i++) {
         const PaDeviceInfo* info = Pa_GetDeviceInfo(i);
         if ((info != NULL) && (info->maxOutputChannels > 0 || info->maxInputChannels > 0)) {
@@ -340,7 +342,11 @@ void DevicePrefs::OnHost(wxCommandEvent& e)
 
     int nDevices = Pa_GetDeviceCount();
 
-    // FIXME: TRAP_ERR PaErrorCode not handled.  nDevices can be negative number.
+    if (nDevices < 0) {
+        wxLogError(wxT("PortAudio error getting device count: %s"), wxString::FromUTF8(Pa_GetErrorText(nDevices)));
+        return -1;
+    }
+
     if (nDevices == 0) {
         mHost->Clear();
         mHost->Append(_("No audio interfaces"), (void*)NULL);
