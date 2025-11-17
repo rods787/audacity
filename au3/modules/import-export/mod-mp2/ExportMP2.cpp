@@ -374,8 +374,7 @@ bool MP2ExportProcessor::Initialize(AudacityProject& project,
     context.id3len = AddTags(context.id3buffer, &endOfFile, metadata);
     if (context.id3len && !endOfFile) {
         if (context.outFile->Write(context.id3buffer.get(), context.id3len).GetLastError()) {
-            // TODO: more precise message
-            throw ExportErrorException("MP2:292");
+            throw ExportErrorException(_("Failed to write ID3 tags to MP2 file"));
         }
         context.id3len = 0;
         context.id3buffer.reset();
@@ -421,12 +420,10 @@ ExportResult MP2ExportProcessor::Process(ExportProcessorDelegate& delegate)
                 mp2BufferSize);
 
             if (mp2BufferNumBytes < 0) {
-                // TODO: more precise message
-                throw ExportErrorException("MP2:339");
+                throw ExportErrorException(_("Failed to encode audio data to MP2 format"));
             }
 
             if (context.outFile->Write(mp2Buffer.get(), mp2BufferNumBytes).GetLastError()) {
-                // TODO: more precise message
                 throw ExportDiskFullError(context.fName);
             }
             exportResult = ExportPluginHelpers::UpdateProgress(
@@ -441,8 +438,7 @@ ExportResult MP2ExportProcessor::Process(ExportProcessorDelegate& delegate)
 
     if (mp2BufferNumBytes > 0) {
         if (context.outFile->Write(mp2Buffer.get(), mp2BufferNumBytes).GetLastError()) {
-            // TODO: more precise message
-            throw ExportErrorException("MP2:362");
+            throw ExportDiskFullError(context.fName);
         }
     }
 
@@ -450,14 +446,12 @@ ExportResult MP2ExportProcessor::Process(ExportProcessorDelegate& delegate)
 
     if (context.id3len) {
         if (context.outFile->Write(context.id3buffer.get(), context.id3len).GetLastError()) {
-            // TODO: more precise message
-            throw ExportErrorException("MP2:371");
+            throw ExportDiskFullError(context.fName);
         }
     }
 
     if (!context.outFile->Close()) {
-        // TODO: more precise message
-        throw ExportErrorException("MP2:377");
+        throw ExportErrorException(_("Failed to close MP2 file"));
     }
     return exportResult;
 }
