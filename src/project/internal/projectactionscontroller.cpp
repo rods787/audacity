@@ -439,7 +439,10 @@ bool ProjectActionsController::saveProject(SaveMode saveMode, SaveLocationType s
     //! TODO AU4
     RetVal<SaveLocation> response = openSaveProjectScenario()->askSaveLocation(project, saveMode, saveLocationType);
     if (!response.ret) {
-        LOGE() << response.ret.toString();
+        // Don't log error if user simply canceled the save dialog
+        if (response.ret.code() != int(Ret::Code::Cancel)) {
+            LOGE() << response.ret.toString();
+        }
         return false;
     }
 
