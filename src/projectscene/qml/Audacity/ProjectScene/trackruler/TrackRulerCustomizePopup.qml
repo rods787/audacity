@@ -123,10 +123,6 @@ StyledPopupView {
             text: qsTrc("trackruler", "Half wave")
 
             checked: false
-
-            onClicked: {
-                console.log("Half wave toggled: " + checked)
-            }
         }
 
         Item {
