@@ -100,7 +100,7 @@ static std::map<std::string, std::string> LABEL_MAP {
 };
 
 // Cloud-related tags
-// TODO: don't use the score's meta tags to use this information
+// TODO: don't use the project's meta tags to use this information
 // https://github.com/musescore/MuseScore/issues/17560
 // https://github.com/musescore/MuseScore/issues/17561
 // inline const QString SOURCE_TAG("source");
