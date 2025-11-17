@@ -850,11 +850,13 @@ void AudioIO::StartMonitoring(const AudioIOStartStreamOptions& options)
 
     Publish({ pOwningProject.get(), AudioIOEvent::MONITOR, true });
 
-    // FIXME: TRAP_ERR PaErrorCode 'noted' but not reported in StartMonitoring.
     // Now start the PortAudio stream!
-    // TODO: ? Factor out and reuse error reporting code from end of
-    // AudioIO::StartStream?
     mLastPaError = Pa_StartStream(mPortStreamV19);
+
+    if (mLastPaError != paNoError) {
+        wxLogError(wxT("Failed to start monitoring stream: %s"),
+                   wxString::FromUTF8(Pa_GetErrorText(mLastPaError)));
+    }
 
     // Update UI display only now, after all possibilities for error are past.
     auto pListener = GetListener();
