@@ -35,7 +35,7 @@ BaseSection {
         id: scoreInversionEnable
         width: parent.width
 
-        text: qsTrc("appshell/preferences", "Invert score")
+        text: qsTrc("appshell/preferences", "Invert project")
 
         navigation.name: "ScoreInversionBox"
         navigation.panel: root.navigation
