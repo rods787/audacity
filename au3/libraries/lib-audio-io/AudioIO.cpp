@@ -828,8 +828,7 @@ void AudioIO::StartMonitoring(const AudioIOStartStreamOptions& options)
         playbackChannels = 2;
     }
 
-    // FIXME: TRAP_ERR StartPortAudioStream (a PaError may be present)
-    // but StartPortAudioStream function only returns true or false.
+    // Note: StartPortAudioStream returns true/false, actual PaError is logged internally
     mUsingAlsa = false;
     mCaptureFormat = captureFormat;
     mCaptureRate = 44100.0; // Shouldn't matter
