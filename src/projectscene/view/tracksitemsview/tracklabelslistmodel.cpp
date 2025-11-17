@@ -147,7 +147,7 @@ void TrackLabelsListModel::update()
     for (int i = 0; i < newList.size(); ++i) {
         TrackLabelItem* item = newList[i];
         if (i < m_items.size() && m_items[i] == item) {
-            // TODO: is it possible to know if update is neccessary?
+            // TODO: is it possible to know if update is necessary?
             QModelIndex idx = index(i);
             emit dataChanged(idx, idx);
         } else {
