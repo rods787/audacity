@@ -162,22 +162,30 @@ EffectStyledDialogView {
                         }
 
                         FlatButton {
-                            id: previewBtn
+                            id: okBtn
+
+                            navigation.panel: root.navigationPanel
+                            navigation.order: -1
+                            navigation.name: "apply btn"
 
                             height: presetsBar.height
                             minWidth: 80
-                            isLeftSide: true
 
-                            text: qsTrc("effects", "Preview")
-                            buttonRole: ButtonBoxModel.CustomRole
-                            buttonId: ButtonBoxModel.CustomButton + 2
+                            text: qsTrc("global", "Apply")
+                            buttonRole: ButtonBoxModel.AcceptRole
+                            buttonId: ButtonBoxModel.Apply
+                            accentButton: true
                             enabled: prv.isApplyAllowed
 
-                            onClicked: prv.viewer.preview()
+                            onClicked: root.accept()
                         }
 
                         FlatButton {
                             id: cancelBtn
+
+                            navigation.panel: root.navigationPanel
+                            navigation.order: presetsBar.navigationOrder + 10
+                            navigation.name: "cancel btn"
 
                             height: presetsBar.height
                             minWidth: 80
@@ -190,18 +198,22 @@ EffectStyledDialogView {
                         }
 
                         FlatButton {
-                            id: okBtn
+                            id: previewBtn
+
+                            navigation.panel: root.navigationPanel
+                            navigation.order: presetsBar.navigationOrder + 11
+                            navigation.name: "preview btn"
 
                             height: presetsBar.height
                             minWidth: 80
+                            isLeftSide: true
 
-                            text: qsTrc("global", "Apply")
-                            buttonRole: ButtonBoxModel.AcceptRole
-                            buttonId: ButtonBoxModel.Apply
-                            accentButton: true
+                            text: qsTrc("effects", "Preview")
+                            buttonRole: ButtonBoxModel.CustomRole
+                            buttonId: ButtonBoxModel.CustomButton + 2
                             enabled: prv.isApplyAllowed
 
-                            onClicked: root.accept()
+                            onClicked: prv.viewer.preview()
                         }
                     }
                 }
