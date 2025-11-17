@@ -309,8 +309,7 @@ std::unique_ptr<ImportFileHandle> FLACImportPlugin::Open(
         return nullptr;
     }
 
-    // This std::move is needed to "upcast" the pointer type
-    return std::move(handle);
+    return handle;
 }
 
 static Importer::RegisteredImportPlugin registered{ "FLAC",
