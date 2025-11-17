@@ -23,7 +23,7 @@ Item {
 
     Component.onCompleted: {
         if (effectsSectionWidth == 0) {
-            console.warn("effectsSectionWidth is not set ; doing some guesswork")
+            // Set default width if not provided
             effectsSectionWidth = 240
         }
     }
