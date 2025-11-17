@@ -104,7 +104,7 @@ Rectangle {
             Layout.preferredWidth: width
             Layout.preferredHeight: height
 
-            windowIsMiximized: root.windowVisibility === Window.Maximized
+            windowIsMaximized: root.windowVisibility === Window.Maximized
 
             visible: root.windowVisibility !== Window.FullScreen
 
