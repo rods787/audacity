@@ -125,10 +125,9 @@ std::unique_ptr<ImportFileHandle> PCMImportPlugin::Open(
     f.Detach();
 
     if (!file) {
-        // TODO: Handle error
-        //char str[1000];
-        //sf_error_str((SNDFILE *)NULL, str, 1000);
-
+        char str[1000];
+        sf_error_str((SNDFILE *)NULL, str, 1000);
+        wxLogError(wxT("Failed to open audio file: %s"), wxString::FromUTF8(str));
         return nullptr;
     } else if (file
                && (info.format & SF_FORMAT_TYPEMASK) == SF_FORMAT_OGG) {
