@@ -322,8 +322,7 @@ bool FLACExportProcessor::Initialize(AudacityProject& project,
     }
 
     if (success && !metadata) {
-        // TODO: more precise message
-        throw ExportErrorException("FLAC:283");
+        throw ExportErrorException(_("Failed to create FLAC metadata"));
     }
 
     if (success && metadata) {
@@ -367,8 +366,7 @@ bool FLACExportProcessor::Initialize(AudacityProject& project,
               && encoder.set_max_lpc_order(flacLevels[levelPref].max_lpc_order);
 
     if (!success) {
-        // TODO: more precise message
-        throw ExportErrorException("FLAC:336");
+        throw ExportErrorException(_("Failed to configure FLAC encoder"));
     }
 
 #ifdef LEGACY_FLAC
@@ -443,7 +441,6 @@ ExportResult FLACExportProcessor::Process(ExportProcessorDelegate& delegate)
         if (!context.encoder.process(
                 reinterpret_cast<FLAC__int32**>(tmpsmplbuf.get()),
                 samplesThisRun)) {
-            // TODO: more precise message
             throw ExportDiskFullError(context.fName);
         }
         exportResult = ExportPluginHelpers::UpdateProgress(
