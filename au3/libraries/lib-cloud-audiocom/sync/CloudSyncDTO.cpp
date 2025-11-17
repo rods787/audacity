@@ -306,21 +306,21 @@ bool Deserialize(const rapidjson::Value& value, ProjectSyncState& urls)
 bool Deserialize(const rapidjson::Value& value, CreateSnapshotResponse& reponse)
 {
     if (!value.IsObject()) {
-        return {}
+        return {};
     }
 
     CreateSnapshotResponse tempResponse;
 
     if (!Deserialize(value, "project", tempResponse.Project)) {
-        return {}
+        return {};
     }
 
     if (!Deserialize(value, "snapshot", tempResponse.Snapshot)) {
-        return {}
+        return {};
     }
 
     if (!Deserialize(value, "sync", tempResponse.SyncState)) {
-        return {}
+        return {};
     }
 
     reponse = std::move(tempResponse);
@@ -331,25 +331,25 @@ bool Deserialize(const rapidjson::Value& value, CreateSnapshotResponse& reponse)
 bool Deserialize(const rapidjson::Value& value, PaginationInfo& info)
 {
     if (!value.IsObject()) {
-        return {}
+        return {};
     }
 
     PaginationInfo tempInfo;
 
     if (!Deserialize(value, "total", tempInfo.TotalCount)) {
-        return {}
+        return {};
     }
 
     if (!Deserialize(value, "pages", tempInfo.PagesCount)) {
-        return {}
+        return {};
     }
 
     if (!Deserialize(value, "page", tempInfo.CurrentPage)) {
-        return {}
+        return {};
     }
 
     if (!Deserialize(value, "size", tempInfo.PageSize)) {
-        return {}
+        return {};
     }
 
     info = std::move(tempInfo);
