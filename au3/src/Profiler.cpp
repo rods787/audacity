@@ -124,10 +124,16 @@ TaskProfile::~TaskProfile()
 void TaskProfile::Begin(const char* fileName, int lineNum, const char* taskDescription)
 {
     if (!mFileName) {
-        mFileName.reinit(strlen(fileName) + 1);
-        strcpy(mFileName.get(), fileName);
-        mDescription.reinit(strlen(taskDescription) + 1);
-        strcpy(mDescription.get(), taskDescription);
+        size_t fileNameLen = strlen(fileName) + 1;
+        mFileName.reinit(fileNameLen);
+        strncpy(mFileName.get(), fileName, fileNameLen);
+        mFileName.get()[fileNameLen - 1] = '\0';
+
+        size_t descLen = strlen(taskDescription) + 1;
+        mDescription.reinit(descLen);
+        strncpy(mDescription.get(), taskDescription, descLen);
+        mDescription.get()[descLen - 1] = '\0';
+
         mLine = lineNum;
     }
 
