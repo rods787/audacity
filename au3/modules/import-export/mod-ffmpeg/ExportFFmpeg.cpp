@@ -1297,8 +1297,7 @@ bool FFmpegExporter::Finalize()
                 encodeResult = EncodeAudio(*pkt, mEncAudioFifoOutBuf.data(), frame_size);
             } else {
                 wxLogDebug(wxT("FFmpeg : Reading from Audio FIFO failed, aborting"));
-                // TODO: more precise message
-                throw ExportErrorException("FFmpeg:825");
+                throw ExportErrorException(_("Failed to read from audio FIFO during FFmpeg export"));
             }
         } else {
             // Fifo is empty, flush encoder. May be called multiple times.
@@ -1307,8 +1306,7 @@ bool FFmpegExporter::Finalize()
         }
 
         if (encodeResult < 0) {
-            // TODO: more precise message
-            throw ExportErrorException("FFmpeg:837");
+            throw ExportErrorException(_("FFmpeg encoding failed"));
         } else if (encodeResult == 0) {
             break;
         }
@@ -1316,8 +1314,7 @@ bool FFmpegExporter::Finalize()
 
     // Write any file trailers.
     if (mFFmpeg->av_write_trailer(mEncFormatCtx->GetWrappedValue()) != 0) {
-        // TODO: more precise message
-        throw ExportErrorException("FFmpeg:868");
+        throw ExportErrorException(_("Failed to write FFmpeg file trailer"));
     }
 
     return true;
@@ -1398,8 +1395,7 @@ bool FFmpegExportProcessor::Initialize(AudacityProject& project,
     bool ret = true;
 
     if (adjustedFormatIndex >= FMT_LAST) {
-        // TODO: more precise message
-        throw ExportErrorException("FFmpeg:996");
+        throw ExportErrorException(_("Invalid FFmpeg export format selected"));
     }
 
     wxString shortname(ExportFFmpegOptions::fmts[adjustedFormatIndex].shortname);
@@ -1412,8 +1408,7 @@ bool FFmpegExportProcessor::Initialize(AudacityProject& project,
     ret = context.exporter->Init(shortname.mb_str(), &project, static_cast<int>(sampleRate), metadata, parameters);
 
     if (!ret) {
-        // TODO: more precise message
-        throw ExportErrorException("FFmpeg:1008");
+        throw ExportErrorException(_("Failed to initialize FFmpeg export"));
     }
 
     context.mixer
