@@ -682,8 +682,7 @@ ExportResult PCMExportProcessor::Process(ExportProcessorDelegate& delegate)
     }
 
     if (0 != sf_close(context.sf)) {
-        // TODO: more precise message
-        throw ExportErrorException("PCM:681");
+        throw ExportErrorException(_("Failed to close audio file"));
     }
 
     context.sf = nullptr;
@@ -694,8 +693,7 @@ ExportResult PCMExportProcessor::Process(ExportProcessorDelegate& delegate)
             || (context.fileFormat == SF_FORMAT_WAV)) {
             // Note: file has closed, and gets reopened and closed again here:
             if (!AddID3Chunk(context.fName, context.metadata.get(), context.sf_format)) {
-                // TODO: more precise message
-                throw ExportErrorException("PCM:694");
+                throw ExportErrorException(_("Failed to write ID3 metadata to audio file"));
             }
         }
     }
