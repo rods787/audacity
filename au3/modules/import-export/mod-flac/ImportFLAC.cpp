@@ -282,14 +282,19 @@ std::unique_ptr<ImportFileHandle> FLACImportPlugin::Open(
         return nullptr; // File not found
     }
 
-    // FIXME: TRAP_ERR wxFILE ops in FLAC Import could fail.
-    // Seek() return value is not examined, for example.
 #ifdef USE_LIBID3TAG
     // Skip any ID3 tags that might be present
     id3_byte_t query[ID3_TAG_QUERYSIZE];
     cnt = binaryFile.Read(query, sizeof(query));
+    if (cnt == wxInvalidOffset) {
+        wxLogError(wxT("Failed to read ID3 tag query from FLAC file"));
+        return nullptr;
+    }
     cnt = id3_tag_query(query, cnt);
-    binaryFile.Seek(cnt);
+    if (binaryFile.Seek(cnt) == wxInvalidOffset) {
+        wxLogError(wxT("Failed to seek past ID3 tag in FLAC file"));
+        return nullptr;
+    }
 #endif
 
     char buf[5];
@@ -407,13 +412,15 @@ void FLACImportFileHandle::Import(
 
     mFile->mImportProgressListener = &progressListener;
 
-    // TODO: Vigilant Sentry: Variable res unused after assignment (error code DA1)
-    //    Should check the result.
    #ifdef LEGACY_FLAC
     bool res = (mFile->process_until_end_of_file() != 0);
    #else
     bool res = (mFile->process_until_end_of_stream() != 0);
    #endif
+
+    if (!res) {
+        wxLogError(wxT("FLAC decoder failed to process file"));
+    }
 
     if (IsCancelled()) {
         progressListener.OnImportResult(ImportProgressListener::ImportResult::Cancelled);
