@@ -65,12 +65,12 @@ EffectType NormalizeEffect::GetType() const
 
 bool NormalizeEffect::CheckWhetherSkipEffect(const EffectSettings&) const
 {
-    return (mGain == false) && (mDC == false);
+    return !mGain && !mDC;
 }
 
 bool NormalizeEffect::Process(EffectInstance&, EffectSettings&)
 {
-    if (mGain == false && mDC == false) {
+    if (!mGain && !mDC) {
         return true;
     }
 
