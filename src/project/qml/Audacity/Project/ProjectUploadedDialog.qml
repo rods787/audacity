@@ -184,9 +184,9 @@ StyledDialogView {
                                 }
 
                                 model: [
-                                    qsTrc("project", "Create a portfolio to showcase your music"),
+                                    qsTrc("project", "Create a portfolio to showcase your audio"),
                                     qsTrc("project", "Gain followers and receive project comments and ratings"),
-                                    qsTrc("project", "Share your projects and collaborate with other musicians")
+                                    qsTrc("project", "Share your projects and collaborate with other creators")
                                 ]
 
                                 RowLayout {
