@@ -2068,7 +2068,7 @@ bool ProjectFileIO::SaveProject(
         if (CloseConnection()) {
             bool reopened = false;
             bool moved = false;
-            if (true == (moved = MoveProject(savedName, fileName))) {
+            if ((moved = MoveProject(savedName, fileName))) {
                 if (OpenConnection(fileName)) {
                     reopened = true;
                 } else {
