@@ -17,7 +17,7 @@ class TimerRecordExportDialog final : public wxDialogWrapper
 public:
     TimerRecordExportDialog(AudacityProject& project, wxWindow* parent = nullptr, wxWindowID = wxID_ANY);
 
-    void Bind(wxFileName& filename, wxString& format, int& sampleRate, int& channels, ExportProcessor::Parameters& paramters);
+    void Bind(wxFileName& filename, wxString& format, int& sampleRate, int& channels, ExportProcessor::Parameters& parameters);
 
 private:
     void PopulateOrExchange(ShuttleGui& S);
