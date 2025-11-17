@@ -21,7 +21,7 @@ Slider {
 
     property alias navigation: navCtrl
 
-    property real handleWidth: 16
+    readonly property real handleWidth: 16
     readonly property real handleHeight: handleWidth
 
     signal volumeLevelMoved(var level)
