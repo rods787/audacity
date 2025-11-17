@@ -460,8 +460,6 @@ StyledDialogView {
                     // navigation.panel: root.navigation
                     // navigation.row: 1
                     // navigation.column: 0
-
-                    onClicked: {}
                 }
             }
         }
