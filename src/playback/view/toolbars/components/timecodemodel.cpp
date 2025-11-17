@@ -206,7 +206,7 @@ void TimecodeModel::setCurrentFormatStr(const QString& title)
             return;
         }
     }
-    // TODO log error
+    LOGE() << "Failed to find matching time format";
 }
 
 int TimecodeModel::currentEditedFieldIndex() const
