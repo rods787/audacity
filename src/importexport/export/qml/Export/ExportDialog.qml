@@ -344,7 +344,7 @@ StyledDialogView {
                         StyledTextLabel {
                             anchors.verticalCenter: parent.verticalCenter
 
-                            text: qsTrc("export", "Format: ")
+                            text: qsTrc("export", "Format:")
                         }
                     }
 
