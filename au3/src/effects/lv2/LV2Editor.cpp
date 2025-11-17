@@ -495,7 +495,7 @@ bool LV2Editor::BuildPlain(EffectSettingsAccess& access)
                 } else if (port->mEnumeration) {
                     // Enumeration port gets a choice control
                     // Discretize the value (all ports hold a float value) to
-                    // determine the intial selection
+                    // determine the initial selection
                     auto s = port->Discretize(value);
                     auto c = safenew wxChoice(w, ID_Choices + p);
                     c->SetName(labelText);
