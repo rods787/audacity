@@ -136,7 +136,7 @@ void SamplesPainter::paint(QPainter& painter, const trackedit::ClipKey& clipKey,
         int yZero = samplespainterutils::getWaveYPos(0.0, zoomMin, zoomMax, paddedMetrics.height, dB, true, dBRange, false);
         yZero = paddedMetrics.top + std::max(-1, std::min(static_cast<int>(paddedMetrics.height + paddedMetrics.top), yZero));
         const auto samples = samplespainterutils::getSampleData(*waveClip, index, paddedMetrics, dB, dBRange, zoomMax, zoomMin);
-        if (samples.size() == 0) {
+        if (samples.empty()) {
             samplespainterutils::drawCenterLine(painter, waveMetrics, params.style, yZero);
             continue;
         }

@@ -60,7 +60,7 @@ void ConnectingDotsPainter::paint(QPainter& painter, const trackedit::ClipKey& c
         const int centerY = waveMetrics.top + waveMetrics.height / 2;
         samplespainterutils::drawCenterLine(painter, waveMetrics, params.style, centerY);
         const auto samples = samplespainterutils::getSampleData(*waveClip, index, waveMetrics, dB, dBRange, zoomMax, zoomMin);
-        if (samples.size() == 0) {
+        if (samples.empty()) {
             continue;
         }
         if (params.showClipping) {

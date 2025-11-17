@@ -391,7 +391,7 @@ std::optional<int> hitNearestSampleChannelIndex(std::shared_ptr<au::project::IAu
         waveMetrics.top += waveMetrics.height;
     }
 
-    if (channelSampleDistance.size() == 0) {
+    if (channelSampleDistance.empty()) {
         return std::nullopt;
     }
 

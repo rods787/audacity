@@ -1750,7 +1750,7 @@ void TrackeditActionsController::resampleTracks(const muse::actions::ActionData&
     }
 
     const TrackIdList selectedTracks = selectionController()->selectedTracks();
-    if (selectedTracks.size() == 0) {
+    if (selectedTracks.empty()) {
         return;
     }
 
