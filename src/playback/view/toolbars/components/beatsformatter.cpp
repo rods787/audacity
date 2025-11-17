@@ -112,7 +112,8 @@ BeatsFormatter::ConversionResult BeatsFormatter::valueToString(double value, boo
 
         char field[10];
         int offset = timecodeModeToOffset(m_mode);
-        snprintf(field, sizeof(field), m_fields[fieldIndex].formatStr.toStdString().c_str(), (int)(fieldValue + offset));
+        std::string formatStr = m_fields[fieldIndex].formatStr.toStdString();
+        snprintf(field, sizeof(field), formatStr.c_str(), (int)(fieldValue + offset));
 
         result.fieldValueStrings[fieldIndex] = field;
 

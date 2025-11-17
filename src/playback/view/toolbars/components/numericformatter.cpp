@@ -399,7 +399,8 @@ NumericFormatter::ConversionResult NumericFormatter::valueToString(double value,
                 field[0] = '-';
             }
         } else {
-            snprintf(field, sizeof(field), m_fields[i].formatStr.toStdString().c_str(), (int)value);
+            std::string formatStr = m_fields[i].formatStr.toStdString();
+            snprintf(field, sizeof(field), formatStr.c_str(), (int)value);
         }
 
         result.fieldValueStrings.push_back(field);
