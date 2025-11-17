@@ -113,8 +113,10 @@ size_t MultiFormatReader::Read(void* buffer, size_t size, size_t len, size_t str
         // so do a scattered read
         for (size_t n = 0; n < len; n++) {
             actRead += fread(&(pWork[n * size]), size, 1, mpFid);
-            // FIXME: TRAP_ERR fseek return in MultiFormatReader unchecked.
-            fseek(mpFid, (stride - 1) * size, SEEK_CUR);
+            if (fseek(mpFid, (stride - 1) * size, SEEK_CUR) != 0) {
+                wxLogError(wxT("Failed to seek in file in MultiFormatReader"));
+                break;
+            }
         }
     } else {
         // Just do a linear read

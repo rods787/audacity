@@ -1082,8 +1082,11 @@ int RawAudioGuess(const wxString& in_fname,
         return -1;
     }
 
-    // FIXME: TRAP_ERR fseek return in RawAudioGuess unchecked.
-    fseek(inf, 0, SEEK_END);
+    if (fseek(inf, 0, SEEK_END) != 0) {
+        wxLogError(wxT("Failed to seek to end of file in RawAudioGuess"));
+        fclose(inf);
+        return -1;
+    }
     fileLen = ftell(inf);
 
     if (fileLen < 8) {
@@ -1111,8 +1114,10 @@ int RawAudioGuess(const wxString& in_fname,
         /* Make it a multiple of 16 (stereo double-precision) */
         startPoint = (startPoint / 16) * 16;
 
-        // FIXME: TRAP_ERR fseek return in MultiFormatReader unchecked.
-        fseek(inf, headerSkipSize + startPoint, SEEK_SET);
+        if (fseek(inf, headerSkipSize + startPoint, SEEK_SET) != 0) {
+            wxLogError(wxT("Failed to seek in file in RawAudioGuess"));
+            break;
+        }
         read_data = fread(rawData[test].get(), 1, dataSize, inf);
         if (read_data != dataSize && ferror(inf)) {
             perror("fread error in RawAudioGuess");
