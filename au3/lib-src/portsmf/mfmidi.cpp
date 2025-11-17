@@ -177,7 +177,7 @@ void Midifile_reader::readtrack()
             }
             chanmessage( status, c1, (needed>1) ? egetc() : 0 );
             if (midifile_error) return;
-            continue;;
+            continue;
         }
 
         switch ( c ) {
