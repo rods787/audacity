@@ -291,7 +291,7 @@ void PowerSpectrum3(int NumSamples, float *In, float *Out)
 
    float theta = float(M_PI / Half);
 
-   float *tmpReal = (float *) alloca(sizeof(float) * Half);;
+   float *tmpReal = (float *) alloca(sizeof(float) * Half);
    float *tmpImag = (float *) alloca(sizeof(float) * Half);
    float *RealOut = (float *) alloca(sizeof(float) * Half);
    float *ImagOut = (float *) alloca(sizeof(float) * Half);
