@@ -807,7 +807,7 @@ void MacrosWindow::UpdateDisplay(bool bExpanded)
 
     // Get and set position for optical stability.
     // Expanded and shrunk dialogs 'stay where they were'.
-    // That's OK , and what we want, even if we exapnd off-screen.
+    // That's OK , and what we want, even if we expand off-screen.
     // We won't shrink to being off-screen, since the shrink button
     // was clicked, so must have been on screen.
     wxPoint p = GetPosition();
