@@ -79,7 +79,7 @@ std::unique_ptr<ImportFileHandle> WavPackImportPlugin::Open(const FilePath& file
 
     auto handle = std::make_unique<WavPackImportFileHandle>(filename, wavpackContext);
 
-    return std::move(handle);
+    return handle;
 }
 
 // ============================================================================
