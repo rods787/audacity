@@ -29,7 +29,7 @@ import "../"
 Row {
     id: root
 
-    property bool windowIsMiximized: false
+    property bool windowIsMaximized: false
 
     spacing: 8
 
@@ -56,7 +56,7 @@ Row {
     FlatButton {
         id: maximizeButton
 
-        icon: !root.windowIsMiximized ? IconCode.APP_MAXIMIZE : IconCode.APP_UNMAXIMIZE
+        icon: !root.windowIsMaximized ? IconCode.APP_MAXIMIZE : IconCode.APP_UNMAXIMIZE
         transparent: true
         drawFocusBorderInsideRect: true
 
