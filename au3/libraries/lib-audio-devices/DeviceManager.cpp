@@ -252,13 +252,25 @@ void DeviceManager::Rescan()
         gAudioIO->StopMonitoring(); // TODO Inject and use IAudioEngine instead
 
         // restart portaudio - this updates the device list
-        // FIXME: TRAP_ERR restarting PortAudio
-        Pa_Terminate();
-        Pa_Initialize();
+        // Note: Error handling for Pa_Terminate/Pa_Initialize is not thread-safe (bug 179)
+        PaError termErr = Pa_Terminate();
+        PaError initErr = Pa_Initialize();
+        if (termErr != paNoError) {
+            wxLogWarning(wxT("Failed to terminate PortAudio: %s"),
+                         wxString::FromUTF8(Pa_GetErrorText(termErr)));
+        }
+        if (initErr != paNoError) {
+            wxLogWarning(wxT("Failed to initialize PortAudio: %s"),
+                         wxString::FromUTF8(Pa_GetErrorText(initErr)));
+        }
     }
 
-    // FIXME: TRAP_ERR PaErrorCode not handled in ReScan()
     int nDevices = Pa_GetDeviceCount();
+    if (nDevices < 0) {
+        wxLogError(wxT("PortAudio error getting device count: %s"),
+                   wxString::FromUTF8(Pa_GetErrorText(nDevices)));
+        return;
+    }
 
     //The hierarchy for devices is Host/device/source.
     //Some newer systems aggregate this.
