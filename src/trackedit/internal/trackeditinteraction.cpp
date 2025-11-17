@@ -295,7 +295,7 @@ bool TrackeditInteraction::newStereoTrack()
 
 bool TrackeditInteraction::newLabelTrack()
 {
-    return withPlaybackStop(&ITrackeditInteraction::newLabelTrack);
+    return m_interaction->newLabelTrack();
 }
 
 bool TrackeditInteraction::deleteTracks(const TrackIdList& trackIds)
