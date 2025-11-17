@@ -200,8 +200,7 @@ bool OGGExportProcessor::Initialize(AudacityProject& project,
     vorbis_info_init(&context.info);
 
     if (vorbis_encode_init_vbr(&context.info, numChannels, (int)(sampleRate + 0.5), quality)) {
-        // TODO: more precise message
-        throw ExportException(_("Unable to export - rate or quality problem"));
+        throw ExportException(_("Failed to initialize Vorbis encoder with specified quality and sample rate"));
     }
 
     context.outFile = std::make_unique<FileIO>(fName, FileIO::Output);
@@ -323,7 +322,6 @@ ExportResult OGGExportProcessor::Process(ExportProcessorDelegate& delegate)
 
                         if (context.outFile->Write(context.page.header, context.page.header_len).GetLastError()
                             || context.outFile->Write(context.page.body, context.page.body_len).GetLastError()) {
-                            // TODO: more precise message
                             throw ExportDiskFullError(context.fName);
                         }
 
@@ -335,8 +333,7 @@ ExportResult OGGExportProcessor::Process(ExportProcessorDelegate& delegate)
             }
 
             if (err) {
-                // TODO: more precise message
-                throw ExportErrorException("OGG:355");
+                throw ExportErrorException(_("Failed to encode audio data to Ogg Vorbis format"));
             }
             exportResult = ExportPluginHelpers::UpdateProgress(
                 delegate, *context.mixer, context.t0, context.t1);
@@ -344,8 +341,7 @@ ExportResult OGGExportProcessor::Process(ExportProcessorDelegate& delegate)
     }
 
     if (!context.outFile->Close()) {
-        // TODO: more precise message
-        throw ExportErrorException("OGG:366");
+        throw ExportErrorException(_("Failed to close Ogg Vorbis file"));
     }
 
     return exportResult;
