@@ -17,13 +17,13 @@ std::shared_ptr<IPlaybackMeter> createMeter(PlaybackMeterType::MeterType meterTy
 {
     switch (meterType) {
     case PlaybackMeterType::MeterType::DbLinear:
-        return std::make_shared<DbLinearMeter>(dbRange);
-    case PlaybackMeterType::MeterType::DbLog:
         return std::make_shared<DbLogMeter>(dbRange);
+    case PlaybackMeterType::MeterType::DbLog:
+        return std::make_shared<DbLinearMeter>(dbRange);
     case PlaybackMeterType::MeterType::Linear:
         return std::make_shared<LinearMeter>(dbRange);
     default:
-        return std::make_shared<DbLogMeter>(dbRange);
+        return std::make_shared<DbLinearMeter>(dbRange);
     }
 }
 }
