@@ -192,7 +192,7 @@ const UiActionList ApplicationUiActions::m_actions = {
     UiAction("toggle-scorecmp-tool",
              au::context::UiCtxProjectOpened,
              au::context::CTX_PROJECT_OPENED,
-             TranslatableString("action", "Score comparison tool"),
+             TranslatableString("action", "Project comparison tool"),
              Checkable::Yes
              ),
 
