@@ -247,9 +247,9 @@ void AudioIOBase::HandleDeviceChange()
         }
     }
 
-    // FIXME: TRAP_ERR errors in HandleDeviceChange not reported.
-    // if it's still not working, give up
+    // if it's still not working, give up and log error
     if (error) {
+        wxLogError(wxT("Failed to restart audio stream after device change"));
         return;
     }
 
