@@ -333,7 +333,7 @@ UiActionList STATIC_ACTIONS = {
              TranslatableString("action", "New label track")
              ),
     UiAction("label-add",
-             au::context::UiCtxUnknown,
+             au::context::UiCtxProjectOpened,
              au::context::CTX_ANY,
              TranslatableString("action", "Add label"),
              TranslatableString("action", "Add label")
