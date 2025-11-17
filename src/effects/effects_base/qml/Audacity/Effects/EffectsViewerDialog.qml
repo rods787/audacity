@@ -41,7 +41,7 @@ EffectStyledDialogView {
     }
 
     onWindowChanged: {
-        // Wait until the window is set: VstView needs it for intialization
+        // Wait until the window is set: VstView needs it for initialization
         switch (effectFamily) {
         case EffectFamily.Builtin:
             viewerLoader.sourceComponent = builtinViewerComp
