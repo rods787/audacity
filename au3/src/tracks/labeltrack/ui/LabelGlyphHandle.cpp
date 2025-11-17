@@ -357,7 +357,7 @@ bool LabelGlyphHandle::HandleGlyphDragRelease
         //      to allow scrolling while dragging labels
         int x = Constrain(evt.m_x + mxMouseDisplacement - r.x, 0, r.width);
 
-        double fNewX = zoomInfo.PositionToTime(x, 0);
+        double fNewX = zoomInfo.PositionToTime(x, r.x);
         // Moving the whole ranged label(s)
         if (hit.mMouseOverLabel != -1) {
             if (evt.ShiftDown()) {
