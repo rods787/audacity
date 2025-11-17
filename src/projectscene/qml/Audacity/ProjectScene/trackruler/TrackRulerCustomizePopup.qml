@@ -125,7 +125,7 @@ StyledPopupView {
             checked: false
 
             onClicked: {
-                console.log("Half wave toggled: " + checked)
+                // TODO: Implement half wave functionality
             }
         }
 
