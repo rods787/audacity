@@ -303,7 +303,7 @@ bool Deserialize(const rapidjson::Value& value, ProjectSyncState& urls)
     return true;
 }
 
-bool Deserialize(const rapidjson::Value& value, CreateSnapshotResponse& reponse)
+bool Deserialize(const rapidjson::Value& value, CreateSnapshotResponse& response)
 {
     if (!value.IsObject()) {
         return {}
@@ -323,7 +323,7 @@ bool Deserialize(const rapidjson::Value& value, CreateSnapshotResponse& reponse)
         return {}
     }
 
-    reponse = std::move(tempResponse);
+    response = std::move(tempResponse);
 
     return true;
 }
