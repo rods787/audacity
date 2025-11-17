@@ -710,6 +710,8 @@ Rectangle {
 
                     visible: header.width > (60 + menuBtn.implicitWidth)
 
+                    accentColor: root.clipColor
+
                     navigation.name: "ClipMenuBtn"
                     navigation.panel: root.clipNavigationPanel
                     navigation.column: 4
