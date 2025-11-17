@@ -210,4 +210,11 @@ Slider {
         navigation.requestActiveByInteraction()
         root.volumeLevelMoved(value)
     }
+
+    onActiveFocusChanged: {
+        if (!activeFocus) {
+            prv.dragActive = false
+            tooltip.hide(true)
+        }
+    }
 }
