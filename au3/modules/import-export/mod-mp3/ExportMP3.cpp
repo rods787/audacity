@@ -956,8 +956,8 @@ bool MP3Exporter::PutInfoTag(wxFFile& f, wxFileOffset off)
 {
     if (mGF) {
         if (mInfoTagLen > 0) {
-            // FIXME: TRAP_ERR Seek and writ ein MP3 exporter could fail.
             if (!f.Seek(off, wxFromStart)) {
+                wxLogError(_("Failed to seek in MP3 file for info tag"));
                 return false;
             }
             if (mInfoTagLen > f.Write(mInfoTagBuf, mInfoTagLen)) {
@@ -1475,8 +1475,7 @@ bool MP3ExportProcessor::Initialize(AudacityProject& project,
     context.id3len = AddTags(context.id3buffer, &endOfFile, metadata);
     if (context.id3len && !endOfFile) {
         if (context.id3len > context.outFile.Write(context.id3buffer.get(), context.id3len)) {
-            // TODO: more precise message
-            throw ExportErrorException("MP3:1882");
+            throw ExportDiskFullError(context.outFile.GetName());
         }
         context.id3len = 0;
         context.id3buffer.reset();
@@ -1486,8 +1485,7 @@ bool MP3ExportProcessor::Initialize(AudacityProject& project,
 
     context.bufferSize = std::max(0, exporter.GetOutBufferSize());
     if (context.bufferSize == 0) {
-        // TODO: more precise message
-        throw ExportErrorException("MP3:1849");
+        throw ExportErrorException(_("Failed to initialize MP3 encoder - invalid buffer size"));
     }
 
     if (rmode == "SET") {
@@ -1556,7 +1554,6 @@ ExportResult MP3ExportProcessor::Process(ExportProcessorDelegate& delegate)
             }
 
             if (bytes > (int)context.outFile.Write(buffer.get(), bytes)) {
-                // TODO: more precise message
                 throw ExportDiskFullError(context.outFile.GetName());
             }
 
@@ -1571,22 +1568,19 @@ ExportResult MP3ExportProcessor::Process(ExportProcessorDelegate& delegate)
         bytes = exporter.FinishStream(buffer.get());
 
         if (bytes < 0) {
-            // TODO: more precise message
-            throw ExportErrorException("MP3:1981");
+            throw ExportErrorException(_("Failed to flush MP3 encoder"));
         }
 
         if (bytes > 0) {
             if (bytes > (int)context.outFile.Write(buffer.get(), bytes)) {
-                // TODO: more precise message
-                throw ExportErrorException("MP3:1988");
+                throw ExportDiskFullError(context.outFile.GetName());
             }
         }
 
         // Write ID3 tag if it was supposed to be at the end of the file
         if (context.id3len > 0) {
             if (bytes > (int)context.outFile.Write(context.id3buffer.get(), context.id3len)) {
-                // TODO: more precise message
-                throw ExportErrorException("MP3:1997");
+                throw ExportDiskFullError(context.outFile.GetName());
             }
         }
 
@@ -1599,8 +1593,7 @@ ExportResult MP3ExportProcessor::Process(ExportProcessorDelegate& delegate)
         if (!exporter.PutInfoTag(context.outFile, context.infoTagPos)
             || !context.outFile.Flush()
             || !context.outFile.Close()) {
-            // TODO: more precise message
-            throw ExportErrorException("MP3:2012");
+            throw ExportErrorException(_("Failed to finalize MP3 file"));
         }
     }
     return exportResult;
